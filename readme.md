@@ -4,7 +4,8 @@ Build your first crud app! Using what we learned yesterday create a full crud ap
 {
   "name":"user name",
   "email": "user email",
-  "state": "CA"
+  "state": "CA",
+  id: 1
 }
 
 Here's a list of all the routes you'll need.
