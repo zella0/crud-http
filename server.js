@@ -14,7 +14,14 @@ function uniqueId() {
 app.get('/users', function(req, res) {
   fs.readFile('./storage.json', 'utf8', function(err, data) {
     if (err) throw err;
-    res.json(JSON.parse(data));
+    if (data.length === 0) {
+      var userObj = {
+        users: []
+      };
+      res.json(userObj)
+    }else{
+      res.json(JSON.parse(data));
+    }
   })
 })
 
@@ -56,14 +63,14 @@ app.put('/users/:id', function(req, res) {
       }
       return curVal;
     })
-    if (updatedUserObj.length === 0) {
+    if (userObj.users.length === 0) {
       console.log('Route not found');
       return res.sendStatus(400);
     }
-    console.log(updatedUserObj);
-    var json = JSON.stringify(updatedUserObj); //convert it back to json
+    console.log(userObj.users);
+    var json = JSON.stringify(userObj); //convert it back to json
     fs.writeFile('./storage.json', json, 'utf8'); // write it back
-    res.json(updatedUserObj);
+    res.json(userObj);
   });
 })
 
